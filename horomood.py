@@ -1,4 +1,4 @@
-my_list = { 
+combinations = { 
     "aquariushungry": "green",
     "aquariusangry": "teal",
     "aquariussad": "blue",
@@ -11,10 +11,8 @@ my_list = {
 }
 
 
-zodiac = input("Hello. Please enter one of three zodiac signs: aquarius, cancer, and libra\n\n")
-mood = input("Please enter one of three moods: hungry, angry, and sad\n\n")
-
-
-new = zodiac + mood
-
-print(my_list[new])
+while True:
+    zodiac = input("Please enter one of these zodiac signs: aquarius, cancer, or libra\n\n")
+    mood = input("Please enter one of these moods: hungry, angry, or sad\n\n")
+    zodiac_mood = zodiac + mood
+    print("\nYou should wear", combinations[zodiac_mood],"\n\n")
