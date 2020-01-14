@@ -2,18 +2,22 @@ import requests
 from pprint import pprint
 
 def weather(city):
-  quote_data = requests.get(f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid=8e21d032bbe0126065706ac69e0caa42").json()
-  weather_id = quote_data['weather'][0]['id']
-  color_codes = {
-        2: "Purple",
-        3: "Yellow",
-        5: "Green",
-        6: "Red",
-        7: "White",
-        8: "Blue"
-  }
-  return color_codes[weather_id//100]
- 
+
+    try:
+        data = requests.get(f"http://api.openweathermap.org/data/2.5/weather?q={city}&appid=8e21d032bbe0126065706ac69e0caa42").json()
+        weather_id = data['weather'][0]['id']
+    except:
+        pass
+
+    color_codes = {
+        2: "purple",
+        3: "yellow",
+        5: "green",
+        6: "red",
+        7: "white",
+        8: "blue"
+    }
+    return color_codes[weather_id//100]
 
 combinations = { 
     "aquariushungry": "green",
@@ -28,13 +32,21 @@ combinations = {
 }
 
 while True:
-    zodiac = input("\nPlease enter one of these zodiac signs: aquarius, cancer, or libra\n\n")
-    mood = input("\nPlease enter one of these moods: hungry, angry, or sad\n\n")
+    zodiac = input("\nWhich is your zodiac sign: aquarius, cancer, or libra?\n\n")
+    mood = input("\nHow are you feeling today, hungry, angry, or sad?\n\n")
     zodiac_mood = zodiac + mood
 
-    city = input("\nPlease enter a city: \n\n")
-    t = weather(city)
-    print("\n You should wear", combinations[zodiac_mood], "and", t, "\n")
-    break
+    city = input("\nIn what city are you? \n\n")
+    try:
+        code = weather(city)
+    except:
+        print("I couldn't find your city. Please try again!")
+
+    try:
+        print("\n You should wear", combinations[zodiac_mood], "and", code,".\n")
+        break
+    except:
+        print("I couldn't understand your input. Please try again!")
+
   
   
